@@ -46,7 +46,7 @@ try
         Add-Application -Product_Code "{5235325-235325-23532523-32532523}" -Version "1.01.1.1" -Operator 'Less than'
 
         ### Add a script Exemple ###
-        Add-Script -Type "Script Type" -Result_Global_Variable_Name "Script_Variable_Name" -Script `
+        Add-Script -Type "Process" -Result_Global_Variable_Name "Result" -Script `
         {
             if(Get-Process -Name "notepad")
             {
@@ -54,7 +54,7 @@ try
             }
             else
             {
-                $Global:Script_Variable_Name = "NotePad is not open wet...";
+                $Global:Result = "NotePad is not open wet...";
                 return $false
             }
         } 
