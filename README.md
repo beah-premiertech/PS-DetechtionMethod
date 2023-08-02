@@ -45,6 +45,8 @@ Use first one if you want to access class directly else you can use second one. 
         Add-File -Path "C:\TEMP\myfile.txt"
     }
 
-One way to maintain up-to date, install and import module could be like this:
+One way to maintain up-to date, install and import module could be like this also note for this use and in general for MECM it a good idea to add a `try{}catch{}` to make sure it not have stupid behavior that show up random error in MECM and it interpret it like application is not install:
 
-    $TargetModuleVersion = "1.1.2.2";$ErrorActionPreference = "SilentlyContinue";Remove-Module PS-DetectionMethod -Force;Uninstall-Module -Name PS-DetectionMethod -AllVersions -Force;Install-Module PS-DetectionMethod -RequiredVersion "$TargetModuleVersion" -Force -SkipPublisherCheck;Import-Module PS-DetectionMethod -RequiredVersion "$TargetModuleVersion";$ErrorActionPreference = "Continue";
+    $Name = "PS-DetectionMethod";$Version = "1.1.2.2";
+    if(Get-InstalledModule -Name $Name){Update-Module -Name $Name -RequiredVersion $Version -Force;Import-Module -Name $Name -RequiredVersion $Version -Force;}
+    else{Install-Module -Name $Name -RequiredVersion $Version -Force;Import-Module -Name $Name -RequiredVersion $Version -Force;}
